@@ -7,7 +7,7 @@ const {
 } = require('../controllers/controllersArticles');
 
 articlesRouter.get('/', getAllArticles);
-articlesRouter.post('/', createArticle);
-articlesRouter.delete('/:articleId', deleteArticle);
+articlesRouter.post('/', validateArticle, createArticle);
+articlesRouter.delete('/:articleId', validateId, deleteArticle);
 
 module.exports = articlesRouter;

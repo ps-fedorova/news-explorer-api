@@ -1,6 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 const {
-  email, password, link, name, articleId, excessObjects,
+  email, password, link, name, keyword, title, text, date, source, image, articleId, excessObjects,
 } = require('./celebrateParametres');
 
 //
@@ -16,8 +16,10 @@ const validateLogin = celebrate({
     .messages(excessObjects),
 });
 
-const validateCard = celebrate({
-  body: Joi.object().keys({ name, link })
+const validateArticle = celebrate({
+  body: Joi.object().keys({
+    keyword, title, text, date, source, link, image,
+  })
     .messages(excessObjects),
 });
 
@@ -26,15 +28,9 @@ const validateId = celebrate({
     .messages(excessObjects),
 });
 
-const validateUserUpdate = celebrate({
-  body: Joi.object().keys({ name })
-    .messages(excessObjects),
-});
-
 module.exports = {
   validateRegister,
   validateLogin,
-  validateUserUpdate,
-  validateCard,
+  validateArticle,
   validateId,
 };

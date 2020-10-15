@@ -6,8 +6,8 @@ const { validateRegister, validateLogin } = require('../middleware/celebrateVali
 const { createUser, login } = require('../controllers/controllersUsers');
 const checkPassword = require('../middleware/checkPassword');
 
-router.post('/signup', checkPassword, createUser);
-router.post('/signin', checkPassword, validateLogin, login);
+router.post('/signup', validateRegister, checkPassword, createUser);
+router.post('/signin', validateLogin, checkPassword, login);
 
 router.use('/users', auth, usersRouter);
 router.use('/articles', auth, articlesRouter);
