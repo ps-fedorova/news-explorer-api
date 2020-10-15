@@ -16,18 +16,20 @@ const createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, email, password: hash,
     }))
-    .catch((err) => {
-      if (err.name === 'MongoError' && err.code === 11000) {
-        throw new ConflictError({ message: CLIENT_ERROR.CONFLICT });
-      } else next(err);
-    })
     .then((user) => res.status(201).send({
       data: {
         name: user.name,
         email: user.email,
       },
     }))
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'MongoError' && err.code === 11000) {
+        throw new ConflictError({ message: CLIENT_ERROR.CONFLICT });
+      } else if (err.name === 'ValidationError') {
+        res.status(400)
+          .send({ message: `${Object.values(err.errors).map((error) => error.message).join(', ')}` });
+      } else next(err);
+    });
 };
 
 // 2. контроллер login получает из запроса почту и пароль и проверяет их
