@@ -22,7 +22,7 @@ const { PORT = 3000 } = process.env; // const PORT = process.env.PORT || 3000;
 
 app.use(cookieParser());
 
-mongoose.connect('mongodb://localhost:27017/mestodb', { // подключение БД
+mongoose.connect('mongodb://localhost:27017/diplomadb', { // подключение БД
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,

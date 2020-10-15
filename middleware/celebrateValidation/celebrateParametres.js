@@ -1,7 +1,7 @@
 const { Joi } = require('celebrate');
 
 const {
-  string, empty, min, max, required, emailMessage, uri, excess, alphanum, length, hex,
+  string, empty, regex, min, max, required, emailMessage, uri, excess, alphanum, length, hex,
 } = require('../../libs/joiMessages');
 
 // user
@@ -20,10 +20,12 @@ const email = Joi
 const password = Joi
   .string()
   .required()
+  .regex(/^\S*$/)
   .min(8)
   .messages({
     'string.base': string,
     'string.empty': empty,
+    'string.pattern.base': regex,
     'string.min': min,
     'any.required': required,
   });
@@ -116,7 +118,7 @@ const image = Joi
   });
 
 //
-const _id = Joi
+const articleId = Joi
   .string()
   .alphanum()
   .length(24)
@@ -146,6 +148,6 @@ module.exports = {
   source,
   link,
   image,
-  _id,
+  articleId,
   excessObjects,
 };

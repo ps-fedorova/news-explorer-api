@@ -9,33 +9,35 @@ const {
 
 const {
   requiredTrue,
-  min,
-  max,
+  castTypeMessage,
+  linkErrorMessage
 } = require('../libs/validationParameters');
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
+    cast: castTypeMessage,
     required: requiredTrue,
-    minlength: min(2),
-    maxlength: max(30),
   },
   email: {
     type: String,
+    cast: castTypeMessage,
     unique: true,
-    required: true,
+    required: requiredTrue,
     validate: {
-      validator(email) {
-        return validator.isEmail(email);
-      },
+      validator: (email) => validator.isEmail(email),
+      message: linkErrorMessage,
     },
+
   },
   password: {
     type: String,
-    required: true,
-    minlength: min(8),
+    cast: castTypeMessage,
+    required: requiredTrue,
     // необходимо добавить поле select, чтобы API не возвращал хеш пароля
     select: false,
+    // здесь могло быть ограничение длины символов пароля, который хранится в базе, но
+    // у нас в базе сохраняется хеш. Проверка не имеет смысла
   },
 });
 

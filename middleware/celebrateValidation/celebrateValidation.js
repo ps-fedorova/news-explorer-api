@@ -1,6 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 const {
-  email, password, link, name, _id, excessObjects,
+  email, password, link, name, articleId, excessObjects,
 } = require('./celebrateParametres');
 
 //
@@ -22,7 +22,7 @@ const validateCard = celebrate({
 });
 
 const validateId = celebrate({
-  params: Joi.object().keys({ _id })
+  params: Joi.object().keys({ articleId })
     .messages(excessObjects),
 });
 

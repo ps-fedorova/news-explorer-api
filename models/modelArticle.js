@@ -3,52 +3,62 @@ const validator = require('validator');
 
 const {
   requiredTrue,
+  castTypeMessage,
+  linkErrorMessage,
 } = require('../libs/validationParameters');
 
-const articleSchema = new mongoose.Schema({
-  keyword: {
-    type: String,
-    required: requiredTrue,
-  },
-  title: {
-    type: String,
-    required: requiredTrue,
-  },
-  text: {
-    type: String,
-    required: requiredTrue,
-  },
-  date: {
-    type: String,
-    required: requiredTrue,
-  },
-  source: {
-    type: String,
-    required: requiredTrue,
-  },
-  link: {
-    type: String,
-    required: requiredTrue,
-    validate: {
-      validator(link) {
-        return validator.isURL(link);
+const articleSchema = new mongoose.Schema(
+  {
+    keyword: {
+      type: String,
+      cast: castTypeMessage,
+      required: requiredTrue,
+    },
+    title: {
+      type: String,
+      cast: castTypeMessage,
+      required: requiredTrue,
+    },
+    text: {
+      type: String,
+      cast: castTypeMessage,
+      required: requiredTrue,
+    },
+    date: {
+      type: String,
+      cast: castTypeMessage,
+      required: requiredTrue,
+    },
+    source: {
+      type: String,
+      cast: castTypeMessage,
+      required: requiredTrue,
+    },
+    link: {
+      type: String,
+      cast: castTypeMessage,
+      required: requiredTrue,
+      validate: {
+        validator: (link) => validator.isURL(link),
+        message: linkErrorMessage,
       },
     },
-  },
-  image: {
-    type: String,
-    required: requiredTrue,
-    validate: {
-      validator(link) {
-        return validator.isURL(link);
+    image: {
+      type: String,
+      cast: castTypeMessage,
+      required: requiredTrue,
+      validate: {
+        validator: (link) => validator.isURL(link),
+        message: linkErrorMessage,
       },
     },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      cast: castTypeMessage,
+      ref: 'user',
+      required: requiredTrue,
+    },
   },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
-    required: requiredTrue,
-  },
-});
+);
 
 module.exports = mongoose.model('article', articleSchema);
