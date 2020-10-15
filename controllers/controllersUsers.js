@@ -9,12 +9,12 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 // 1. контроллер createUser создаёт пользователя
 const createUser = (req, res, next) => {
   const {
-    name, about, avatar, email, password,
+    name, email, password,
   } = req.body;
 
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
-      name, about, avatar, email, password: hash,
+      name, email, password: hash,
     }))
     .catch((err) => {
       if (err.name === 'MongoError' && err.code === 11000) {
