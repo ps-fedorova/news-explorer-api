@@ -60,10 +60,8 @@ const getCurrentUser = (req, res, next) => {
       throw new NotFoundError({ message: CLIENT_ERROR.USER_NOT_FOUND });
     })
     .then((user) => res.send({
-      data: {
-        name: user.name,
-        email: user.email,
-      },
+      name: user.name,
+      email: user.email,
     }))
     .catch(next);
 };
