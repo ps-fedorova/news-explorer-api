@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/modelUser');
-const { NotFoundError, ConflictError } = require('../errors');
+const { BadRequestError, NotFoundError, ConflictError } = require('../errors');
 const { SUCCESS, CLIENT_ERROR } = require('../libs/statusMessages');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
@@ -9,26 +9,24 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 // 1. контроллер createUser создаёт пользователя
 const createUser = (req, res, next) => {
   const {
-    name, email, password,
+    email, password, name,
   } = req.body;
 
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
-      name, email, password: hash,
+      email, password: hash, name,
     }))
-    .then((user) => res.status(201).send({
-      data: {
-        name: user.name,
-        email: user.email,
-      },
-    }))
+    .then((user) => {
+      res.status(201).send({ _id: user._id, email, name });
+    })
     .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return next(new BadRequestError({ message: `${Object.values(err.errors).map((error) => error.message).join(', ')}` }));
+      }
       if (err.name === 'MongoError' && err.code === 11000) {
-        throw new ConflictError({ message: CLIENT_ERROR.CONFLICT });
-      } else if (err.name === 'ValidationError') {
-        res.status(400)
-          .send({ message: `${Object.values(err.errors).map((error) => error.message).join(', ')}` });
-      } else next(err);
+        return next(new ConflictError(({ message: CLIENT_ERROR.CONFLICT })));
+      }
+      return next(err);
     });
 };
 
