@@ -52,7 +52,7 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
-// 3. контроллер getCurrentUser возвращает пользователя по _id
+// 3. контроллер getCurrentUser возвращает информацию о пользователе (email и имя)
 const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail()

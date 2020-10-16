@@ -1,5 +1,5 @@
 const Article = require('../models/modelArticle');
-const { BadRequestError, NotFoundError, ForbiddenError } = require('../errors');
+const { NotFoundError, ForbiddenError } = require('../errors');
 
 const {
   SUCCESS,
