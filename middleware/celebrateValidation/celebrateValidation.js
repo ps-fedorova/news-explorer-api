@@ -5,26 +5,26 @@ const {
 
 //
 const validateRegister = celebrate({
-  body: Joi.object().keys({
+  body: Joi.object().options({ abortEarly: false }).keys({
     name, email, password,
   })
     .messages(excessObjects),
 });
 
 const validateLogin = celebrate({
-  body: Joi.object().keys({ email, password })
+  body: Joi.object().options({ abortEarly: false }).keys({ email, password })
     .messages(excessObjects),
 });
 
 const validateArticle = celebrate({
-  body: Joi.object().keys({
+  body: Joi.object().options({ abortEarly: false }).keys({
     keyword, title, text, date, source, link, image,
   })
     .messages(excessObjects),
 });
 
 const validateId = celebrate({
-  params: Joi.object().keys({ articleId })
+  params: Joi.object().options({ abortEarly: false }).keys({ articleId })
     .messages(excessObjects),
 });
 
