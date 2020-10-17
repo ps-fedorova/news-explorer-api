@@ -2,7 +2,7 @@
 
 Проект представляет собой API для аутентификации пользователей и сохранения статей.
 
-Домен: http://news.students.nomoreparties.xyz   
+Домен бэкенда: http://api.news.students.nomoreparties.xyz   
 Публичный IPv4: 130.193.37.57
  
 ## Технологии
