@@ -1,5 +1,5 @@
 const Article = require('../models/modelArticle');
-const { NotFoundError, ForbiddenError } = require('../errors');
+const { BadRequestError, NotFoundError, ForbiddenError } = require('../errors');
 
 const {
   SUCCESS,
@@ -26,9 +26,9 @@ const createArticle = (req, res, next) => {
     .then((article) => res.status(201).send({ data: article }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(400)
-          .send({ message: `${Object.values(err.errors).map((error) => error.message).join(', ')}` });
-      } else next();
+        return next(new BadRequestError({ message: `${Object.values(err.errors).map((error) => error.message).join(', ')}` }));
+      }
+      return next(err);
     });
 };
 
