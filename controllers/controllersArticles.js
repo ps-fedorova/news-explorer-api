@@ -43,7 +43,7 @@ const deleteArticle = (req, res, next) => {
       if (article.owner.toString() !== req.user._id) {
         throw new ForbiddenError({ message: CLIENT_ERROR.FORBIDDEN });
       }
-      Article.findByIdAndDelete(req.params.articleId)
+      Article.deleteOne(article)
         .then(() => res.send({ message: SUCCESS.REMOVE_CARD }))
         .catch(next);
     })
