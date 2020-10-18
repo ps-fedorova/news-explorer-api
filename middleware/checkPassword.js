@@ -1,4 +1,4 @@
-const { checkPassword } = require('../libs/validationParameters');
+const { checkPassword } = require('../libs/validationMessages');
 
 module.exports = (req, res, next) => {
   const { password } = req.body;

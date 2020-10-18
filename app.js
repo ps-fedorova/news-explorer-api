@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 // const { errors } = require('celebrate');
-const errorHandler = require('./middleware/celebrateValidation/errorHandler'); // кастомизированная обработка ошибок
+const celebrateErrorHandler = require('./middleware/celebrateValidation/celebrateErrorHandler'); // кастомизированная обработка ошибок
 
 const { NotFoundError } = require('./errors');
 
@@ -49,7 +49,7 @@ app.use(router); // обработчик роутов
 app.use(errorLogger);
 
 // app.use(errors()); // обработка ошибок в из celebrate
-app.use(errorHandler);
+app.use(celebrateErrorHandler);
 
 app.use(() => {
   throw new NotFoundError({ message: CLIENT_ERROR.RESOURCE_NOT_FOUND });

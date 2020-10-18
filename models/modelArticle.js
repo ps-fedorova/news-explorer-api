@@ -5,7 +5,7 @@ const {
   requiredTrue,
   castTypeMessage,
   linkErrorMessage,
-} = require('../libs/validationParameters');
+} = require('../libs/validationMessages');
 
 const articleSchema = new mongoose.Schema(
   {

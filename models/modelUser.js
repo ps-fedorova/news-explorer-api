@@ -11,7 +11,7 @@ const {
   requiredTrue,
   castTypeMessage,
   linkErrorMessage,
-} = require('../libs/validationParameters');
+} = require('../libs/validationMessages');
 
 const userSchema = new mongoose.Schema({
   name: {
