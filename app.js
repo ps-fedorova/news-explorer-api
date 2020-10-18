@@ -43,16 +43,17 @@ app.get('/crash-test', () => { // краш-тест сервера
   }, 0);
 });
 
-app.use(router);
+app.use(router); // обработчик роутов
 
-app.use(() => {
-  throw new NotFoundError({ message: CLIENT_ERROR.RESOURCE_NOT_FOUND });
-});
-
+// errorLogger нужно подключить после обработчиков роутов и до обработчиков ошибок
 app.use(errorLogger);
 
 // app.use(errors()); // обработка ошибок в из celebrate
 app.use(errorHandler);
+
+app.use(() => {
+  throw new NotFoundError({ message: CLIENT_ERROR.RESOURCE_NOT_FOUND });
+});
 
 app.use((err, req, res, next) => {
   if (err.status !== '500') {
