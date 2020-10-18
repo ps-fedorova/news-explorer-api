@@ -27,13 +27,7 @@ mongoose.connect('mongodb://localhost:27017/diplomadb', { // подключен�
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
-})
-  .then(() => {
-    console.log('База данных подключена');
-  })
-  .catch((err) => {
-    console.log(`Ошибка при подключении базы данных: ${err}`);
-  });
+});
 
 app.use(requestLogger);
 
@@ -71,6 +65,4 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.listen(PORT, () => {
-  console.log(`Приложение запущено, порт ${PORT}`);
-});
+app.listen(PORT);
