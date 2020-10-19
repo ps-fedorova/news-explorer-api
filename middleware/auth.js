@@ -10,7 +10,7 @@ const auth = (req, res, next) => {
   try {
     payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
-    throw new UnauthorizedError({ message: CLIENT_ERROR.FORBIDDEN });
+    throw new UnauthorizedError({ message: CLIENT_ERROR.AUTHORIZATION });
   }
   req.user = payload;
 
