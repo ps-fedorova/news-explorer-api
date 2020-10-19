@@ -2,7 +2,7 @@
 
 Проект представляет собой API для аутентификации пользователей и сохранения статей.
 
-Домен бэкенда: https://XXXXX.students.nomoreparties.xyz   
+Домен бэкенда: https://www.api.fed.students.nomoreparties.xyz   
 Публичный IPv4: 178.154.225.241
  
 ## Технологии
