@@ -8,7 +8,7 @@ const {
 
 // 1. контроллер getAllArticles возвращает все статьи
 const getAllArticles = (req, res, next) => {
-  Article.find({})
+  Article.find({ owner: req.user._id })
     .populate('user')
     .then((articles) => res.send({ data: articles }))
     .catch(next);
