@@ -37,14 +37,14 @@ const deleteArticle = (req, res, next) => {
   Article.findById(req.params.articleId)
     .orFail()
     .catch(() => {
-      throw new NotFoundError({ message: CLIENT_ERROR.CARD_NOT_FOUND });
+      throw new NotFoundError({ message: CLIENT_ERROR.ARTICLE_NOT_FOUND });
     })
     .then((article) => {
       if (article.owner.toString() !== req.user._id) {
         throw new ForbiddenError({ message: CLIENT_ERROR.FORBIDDEN });
       }
       Article.deleteOne(article)
-        .then(() => res.send({ message: SUCCESS.REMOVE_CARD }))
+        .then(() => res.send({ message: SUCCESS.REMOVE_ARTICLE }))
         .catch(next);
     })
     .catch(next);
