@@ -32,7 +32,7 @@ const createArticle = (req, res, next) => {
     });
 };
 
-// 3. контроллер deleteCard удаляет карточку по идентификатору
+// 3. контроллер deleteArticle удаляет статью по идентификатору
 const deleteArticle = (req, res, next) => {
   Article.findById(req.params.articleId)
     .orFail()
