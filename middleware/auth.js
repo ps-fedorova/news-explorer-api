@@ -1,15 +1,14 @@
 const jwt = require('jsonwebtoken');
 const UnauthorizedError = require('../errors/401_UnauthorizedError');
 const { CLIENT_ERROR } = require('../libs/statusMessages');
-
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { JWT_SECRET } = require('../config');
 
 const auth = (req, res, next) => {
   const token = req.cookies.jwt;
 
   let payload;
   try {
-    payload = jwt.verify(token, `${NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret'}`);
+    payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
     throw new UnauthorizedError({ message: CLIENT_ERROR.FORBIDDEN });
   }

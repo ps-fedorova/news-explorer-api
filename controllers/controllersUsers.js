@@ -3,8 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/modelUser');
 const { BadRequestError, NotFoundError, ConflictError } = require('../errors');
 const { SUCCESS, CLIENT_ERROR } = require('../libs/statusMessages');
-
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { NODE_ENV, JWT_SECRET } = require('../config');
 
 // 1. контроллер createUser создаёт пользователя
 const createUser = (req, res, next) => {
@@ -38,7 +37,7 @@ const login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        NODE_ENV === 'production' ? JWT_SECRET : 'JWT_SECRET',
         { expiresIn: '7d' },
       );
       res
