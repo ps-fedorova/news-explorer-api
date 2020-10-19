@@ -26,13 +26,13 @@ mongoose.connect(MONGO, { // подключение БД
   useUnifiedTopology: true,
 });
 
-app.use(requestLogger);
-
 app.use(helmet()); // для простановки security-заголовков для API
 app.use(limiter); // для ограничения количества запросов (до 100 раз за 15 минут)
 
 app.use(bodyParser.json()); // для собирания JSON-формата
 app.use(bodyParser.urlencoded({ extended: false })); // для приёма веб-страниц внутри POST-запроса
+
+app.use(requestLogger); // логгер запросов нужно подключить до всех обработчиков роутов
 
 app.use(router); // обработчик роутов
 
@@ -42,10 +42,10 @@ app.use(errorLogger);
 // app.use(errors()); // обработка ошибок в из celebrate
 app.use(celebrateErrorHandler);
 
-app.use(() => {
+app.use(() => { // "не найдено"
   throw new NotFoundError({ message: CLIENT_ERROR.RESOURCE_NOT_FOUND });
 });
 
-app.use(errorHandler);
+app.use(errorHandler); // "ошибка сервера"
 
 app.listen(PORT);
