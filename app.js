@@ -2,6 +2,7 @@ require('dotenv').config(); // dotenv нужен для чтения перем�
 
 const express = require('express');
 
+const cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -16,6 +17,20 @@ const router = require('./routes');
 
 const app = express();
 
+const corsOptions = {
+  origin: [
+    '178.154.225.241',
+    'http://localhost:3000',
+    'https://localhost:3000',
+    'https://ps-fedorova.github.io/news-explorer-frontend/',
+    'http://www.fed.students.nomoreparties.co',
+    'https://www.fed.students.nomoreparties.co',
+    'http://fed.students.nomoreparties.co',
+    'https://fed.students.nomoreparties.co',
+  ],
+  credentials: true,
+};
+
 mongoose.connect(MONGO, { // подключение БД
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -25,6 +40,7 @@ mongoose.connect(MONGO, { // подключение БД
 
 app.use(limiter); // для ограничения количества запросов (до 100 раз за 15 минут)
 app.use(helmet()); // для простановки security-заголовков для API
+app.use(cors(corsOptions)); // получать доступ к моему API
 
 app.use(cookieParser());
 app.use(bodyParser.json()); // для собирания JSON-формата
