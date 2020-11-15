@@ -21,7 +21,7 @@ const corsOptions = {
   origin: [
     'http://localhost:3000',
     'https://localhost:3000',
-    'https://ps-fedorova.github.io/news-explorer-frontend/',
+    'https://ps-fedorova.github.io/news-explorer-frontend/#/',
     'http://www.fed.students.nomoreparties.co',
     'https://www.fed.students.nomoreparties.co',
     'http://fed.students.nomoreparties.co',
