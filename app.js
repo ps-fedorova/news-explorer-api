@@ -30,7 +30,7 @@ const app = express();
 //   credentials: true,
 // };
 
-const corsOptions = { origin: true };
+const corsOptions = { origin: true, credentials: true };
 
 mongoose.connect(MONGO, { // подключение БД
   useNewUrlParser: true,
