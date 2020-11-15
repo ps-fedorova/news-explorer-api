@@ -17,20 +17,17 @@ const router = require('./routes');
 
 const app = express();
 
-// const corsOptions = {
-//   origin: [
-//     'http://localhost:3000',
-//     'https://localhost:3000',
-//     'https://ps-fedorova.github.io/news-explorer-frontend/#/',
-//     'http://www.fed.students.nomoreparties.co',
-//     'https://www.fed.students.nomoreparties.co',
-//     'http://fed.students.nomoreparties.co',
-//     'https://fed.students.nomoreparties.co',
-//   ],
-//   credentials: true,
-// };
+const corsOptions = {
+  origin: [
+    'http://www.fed.students.nomoreparties.co',
+    'https://www.fed.students.nomoreparties.co',
+    'http://fed.students.nomoreparties.co',
+    'https://fed.students.nomoreparties.co',
+  ],
+  credentials: true,
+};
 
-const corsOptions = { origin: true, credentials: true };
+// const corsOptions = { origin: true, credentials: true };
 
 mongoose.connect(MONGO, { // подключение БД
   useNewUrlParser: true,
