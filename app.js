@@ -19,10 +19,7 @@ const app = express();
 
 const corsOptions = {
   origin: [
-    'http://www.fed.students.nomoreparties.xyz',
-    'https://www.fed.students.nomoreparties.xyz',
-    'http://fed.students.nomoreparties.xyz',
-    'https://fed.students.nomoreparties.xyz',
+    'http://localhost:3000',
   ],
   credentials: true,
 };
